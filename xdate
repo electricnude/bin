@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use 5.008;
+
+use DateTime;
+#:: use Smart::Comments;
+
+my $dt = DateTime->from_epoch(
+    time_zone   => $ENV{ 'TZ' } || 'Asia/Tokyo',
+    epoch       => ( $ARGV[ 0 ] and $ARGV[ 0 ] =~ m{ \A [0-9]+ \z }msx )
+        ? $ARGV[ 0 ] : time(),
+);
+my $ret = sprintf( "%s(%s)%s <-> %d",
+    $dt->ymd( '-' ),
+    $dt->day_abbr,
+    $dt->hms( ':' ),
+    $dt->epoch,
+);
+### $ret
+
+print $ret, "\n";
+
